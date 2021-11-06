@@ -3,9 +3,9 @@ package com.bignerdranch.geoquiz
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity.apply
 import android.widget.Button
 import android.widget.TextView
 
@@ -14,7 +14,7 @@ const val EXTRA_ANSWER_SHOWN = "com.bignerdranch.android.geoquiz.answer_shown"
 
 
 class CheatActivity : AppCompatActivity() {
-
+    private lateinit var apiVersionTextView: TextView
     private lateinit var showAnswerButton: Button
     private lateinit var answerTextView: TextView
     private var answerIsTrue = false
@@ -26,6 +26,7 @@ class CheatActivity : AppCompatActivity() {
         answerIsTrue = intent.getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false)
         answerTextView = findViewById(R.id.answer_text_view)
         showAnswerButton = findViewById(R.id.show_answer_button)
+        apiVersionTextView = findViewById(R.id.api_version_text_view)
 
         /**
          * определяем текст в TextView
@@ -38,6 +39,8 @@ class CheatActivity : AppCompatActivity() {
             answerTextView.setText(answerText)
             setAnswerShownResult(true)
         }
+        val apiVersion = Build.VERSION.SDK_INT.toString()
+        apiVersionTextView.text = "API level $apiVersion"
 
     }
 
