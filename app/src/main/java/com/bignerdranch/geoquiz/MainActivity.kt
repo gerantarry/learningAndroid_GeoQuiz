@@ -1,7 +1,10 @@
 package com.bignerdranch.geoquiz
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -25,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val quizViewModel: QuizViewModel by lazy {
         ViewModelProviders.of(this).get(QuizViewModel::class.java)
     }
-
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG,"onCreate(Bundle?) called")
@@ -53,10 +56,17 @@ class MainActivity : AppCompatActivity() {
             updateQuestion()
         }
         //добавляем в extra в intent
-        cheatButton.setOnClickListener {
+        cheatButton.setOnClickListener { view ->
             val answerIsTrue = quizViewModel.currentQuestionAnswer
             val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
             startActivityForResult(intent,REQUEST_CODE_CHEAT) //установка кода запроса в дочернюю активити
+
+           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){ // определяем версию Android на устройстве и сравниваем её с версией Android Marshmallow. Код будет выполняться только с 23+ версии
+            val options = ActivityOptions
+                .makeClipRevealAnimation(view, 0, 0, view.width, view.height)
+                } else{
+                    startActivityForResult(intent, REQUEST_CODE_CHEAT)
+           }
         }
 
         updateQuestion()
