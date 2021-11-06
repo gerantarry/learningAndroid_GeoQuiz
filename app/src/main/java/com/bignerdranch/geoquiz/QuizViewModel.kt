@@ -15,6 +15,7 @@ class QuizViewModel: ViewModel (){
         Question(R.string.question_africa,false)
     )
 
+    var hintsCounter = 3
     var currentIndex = 0
     var isCheater = false
 

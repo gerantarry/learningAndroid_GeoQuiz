@@ -26,11 +26,17 @@
         android:text="@string/show_answer_button"/>
 
     <TextView
-        android:id="@+id/api_version_text_view"
-        android:padding="24dp"
+        android:id="@+id/hints_counter_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Api Version"/>
+        tools:text="hints left: 3"/>
+
+    <TextView
+        android:id="@+id/api_version_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        tools:text="Api Version" />
 
 
 </LinearLayout>

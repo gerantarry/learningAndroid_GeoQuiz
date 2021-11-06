@@ -39,8 +39,8 @@ class CheatActivity : AppCompatActivity() {
             answerTextView.setText(answerText)
             setAnswerShownResult(true)
         }
-        val apiVersion = Build.VERSION.SDK_INT.toString()
-        apiVersionTextView.text = "API level $apiVersion"
+        val textApiLevel = getString(R.string.api_level_text, Build.VERSION.SDK_INT)
+        apiVersionTextView.text = textApiLevel
 
     }
 
