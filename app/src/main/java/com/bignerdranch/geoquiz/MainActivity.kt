@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (requestCode == REQUEST_CODE_CHEAT) {
-            quizViewModel.isCheater =
+            quizViewModel.currentCheaterStatus =
                 data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
         }
     }
@@ -115,17 +115,17 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         Log.d(TAG,"onDestroy() called")
     }
-
+    //показать следующий вопрос
     private fun updateQuestion() {
         val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
     }
-
+    //проверка ответа на читерство и правильность
     private fun checkAnswer(userAnswer:Boolean){
         val correctAnswer = quizViewModel.currentQuestionAnswer
 
         val messageResId = when{
-            quizViewModel.isCheater -> R.string.judgement_toast
+            quizViewModel.currentCheaterStatus -> R.string.judgement_toast
             userAnswer == correctAnswer -> R.string.correct_toast
             else -> R.string.incorrect_toast
         }
