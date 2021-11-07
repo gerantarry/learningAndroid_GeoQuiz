@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val quizViewModel: QuizViewModel by lazy {
         ViewModelProviders.of(this).get(QuizViewModel::class.java)
     }
+
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         //добавляем в extra в intent
         cheatButton.setOnClickListener { view ->
             val answerIsTrue = quizViewModel.currentQuestionAnswer
-            val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
+            val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue, quizViewModel.hintsCounter )
             startActivityForResult(intent,REQUEST_CODE_CHEAT) //установка кода запроса в дочернюю активити
 
            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){ // определяем версию Android на устройстве и сравниваем её с версией Android Marshmallow. Код будет выполняться только с 23+ версии
@@ -80,8 +81,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (requestCode == REQUEST_CODE_CHEAT) {
-            quizViewModel.currentCheaterStatus =
-                data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+            quizViewModel.currentCheaterStatus = data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+            quizViewModel.hintsCounter = data?.getIntExtra(EXTRA_HINTS_COUNTER, 3) ?: 3
         }
     }
 

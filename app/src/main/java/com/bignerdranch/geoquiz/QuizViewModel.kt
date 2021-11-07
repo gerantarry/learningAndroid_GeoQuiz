@@ -2,8 +2,6 @@ package com.bignerdranch.geoquiz
 
 import androidx.lifecycle.ViewModel
 
-private const val TAG = "QuizViewModel"
-
 class QuizViewModel: ViewModel (){
 
     private val questionBank = listOf(
@@ -15,12 +13,12 @@ class QuizViewModel: ViewModel (){
         Question(R.string.question_africa,false)
     )
 
-    var hintsCounter = 3
     var currentIndex = 0
+    var hintsCounter = 3
 
     var currentCheaterStatus: Boolean
     get() = questionBank[currentIndex].isCheater
-    set(isCheater:Boolean) { questionBank[currentIndex].isCheater = isCheater }
+    set(isCheater) { questionBank[currentIndex].isCheater = isCheater }
 
     val currentQuestionAnswer: Boolean
         get() = questionBank[currentIndex].answer
